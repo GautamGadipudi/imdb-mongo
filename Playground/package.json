@@ -1,0 +1,14 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "description": "try out new modules",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gautam Gadipudi",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^7.18.2"
+  }
+}
