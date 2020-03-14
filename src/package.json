@@ -1,0 +1,32 @@
+{
+  "name": "imdb-mongo",
+  "version": "1.0.0",
+  "description": "Retrieve relational data from IMDB PostgreSQL database and dump it into IMDB MongoDB.",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node ./tests/test.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GautamGadipudi/imdb-mongo/issues"
+  },
+  "keywords": [
+    "imdb",
+    "mongodb",
+    "postgres",
+    "postgresql",
+    "mongo",
+    "bigdata"
+  ],
+  "author": "Gautam Gadipudi",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "mongodb": "^3.5.5",
+    "pg": "^7.18.2"
+  }
+}

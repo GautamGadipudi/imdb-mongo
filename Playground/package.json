@@ -9,6 +9,8 @@
   "author": "Gautam Gadipudi",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.15",
+    "mongodb": "^3.5.4",
     "pg": "^7.18.2"
   }
 }
