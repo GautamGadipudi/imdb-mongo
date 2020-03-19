@@ -33,34 +33,42 @@ const getAllMembers = (callback) => {
 const getAllMovies = (callback) => {
     console.log(`Connected to PG DB ${JSON.stringify(_.pick(pgConnection, ['user', 'host', 'database']))}`);
     query = `SELECT m.id _id,
-                    m.type,
-                    m.title,
-                    m.originaltitle originalTitle,
-                    m.startyear startYear,
-                    m.endyear endYear,
-                    m.runtime,
-                    m.avgrating averageRating,
-                    m.numvotes numVotes,
-                    JSON_AGG(DISTINCT JSONB_BUILD_OBJECT('actor', actor, 'roles', roles)) actors,
-                    JSON_AGG(DISTINCT md.director) directors,
-                    JSON_AGG(DISTINCT mp.producer) producers,
-                    JSON_AGG(DISTINCT mw.writer) writers
+                m.type,
+                m.title,
+                m.originaltitle originalTitle,
+                m.startyear startYear,
+                m.endyear endYear,
+                m.runtime,
+                m.avgrating averageRating,
+                m.numvotes numVotes,
+                JSON_AGG(DISTINCT foo2.name) genres,
+                JSON_AGG(DISTINCT JSONB_BUILD_OBJECT('actor', actor, 'roles', roles)) actors,
+                JSON_AGG(DISTINCT md.director) directors,
+                JSON_AGG(DISTINCT mp.producer) producers,
+                JSON_AGG(DISTINCT mw.writer) writers
             FROM movie m
             LEFT OUTER JOIN (SELECT amr.movie, 
-                    amr.actor, 
-                    JSON_AGG(DISTINCT r.name) roles
-                    FROM actor_movie_role amr
-                    INNER JOIN role r
-                        ON amr.role = r.id
-                    GROUP BY amr.movie, amr.actor
+                amr.actor, 
+                JSON_AGG(DISTINCT r.name) roles
+                FROM actor_movie_role amr
+                INNER JOIN role r
+                    ON amr.role = r.id
+                GROUP BY amr.movie, amr.actor
             ) AS foo
-                ON foo.movie = m.id
+            ON foo.movie = m.id
+            LEFT OUTER JOIN (SELECT mg.movie,
+                g.name 
+                FROM movie_genre mg
+                INNER JOIN genre g
+                    ON mg.genre = g.id
+            ) AS foo2
+            ON foo2.movie = m.id
             LEFT OUTER JOIN movie_director md
-                ON md.movie = m.id
+            ON md.movie = m.id
             LEFT OUTER JOIN movie_producer mp
-                ON mp.movie = m.id
+            ON mp.movie = m.id
             LEFT OUTER JOIN movie_writer mw
-                ON mw.movie = m.id
+            ON mw.movie = m.id
             GROUP BY m.id`,
     console.log(`EXEC query ${query}`);
     client
@@ -69,6 +77,7 @@ const getAllMovies = (callback) => {
             console.log(`Retrieved ${res.rowCount} rows from PG DB.`);
             result = res.rows;
             x = result.map((item) => {
+                
                 return _.pickBy(item)
             })            
             callback(x)

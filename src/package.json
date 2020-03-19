@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "node ./tests/test.js",
-    "start": "node --max-old-space-size=4096 app.js"
+    "start": "node --max-old-space-size=8192 app.js"
   },
   "repository": {
     "type": "git",

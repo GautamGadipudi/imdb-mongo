@@ -82,12 +82,11 @@ isMovieCollectionCreated = db.createCollection("movies", {
                     description: "must be an array of actor-roles objects.",
                     items: {
                         bsonType: "object",
-                        required: ["actor", "roles"],
                         description: "must be an actor object { actor: , roles: [X, Y, Z,…] }",
                         properties: {
                             actor: {
                                 bsonType: "int",
-                                description: "must be an int and is required."
+                                description: "must be an int."
                             },
                             roles: {
                                 bsonType: "array",
