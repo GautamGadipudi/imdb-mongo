@@ -1,11 +1,23 @@
-const {getAllMembers} = require('./services/pg/get')
-const {insertMembers} = require('./services/mongo/insert')
+const {getAllMembers, getAllMovies} = require('./services/pg/get')
+const {insert} = require('./services/mongo/insert')
 
 getAllMembers((members, err) => {
     if (!err) {
-        insertMembers(members, (err) => {
-            if (!err)
-                process.exit(0)
+        insert("members", members, (err) => {
+            if (!err) {
+                getAllMovies((results, err) => {
+                    if (!err) {
+                        insert("movies", results, (err) => {
+                            if (!err)
+                                process.exit(0)
+                            else
+                                process.exit(1, err)
+                        })
+                    }   
+                    else
+                        process.exit(1, err)                     
+                })
+            }
             else
                 process.exit(1, err)
         })

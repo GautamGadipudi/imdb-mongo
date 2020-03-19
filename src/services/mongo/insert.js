@@ -3,13 +3,13 @@ const {MongoClient} = require('mongodb')
 
 const mongoConnection = require('../../config/mongo/mongoConnection.json')
 
-const insertMembers = (values, callback) => {
+const insert = (collectionName, values, callback) => {
     console.log(`Connecting to ${JSON.stringify(mongoConnection)} ...`);
     MongoClient.connect(mongoConnection.url, (err, client) => {
         if (!err) {
             console.log(`Connected to ${JSON.stringify(mongoConnection)}.`);
             const db = client.db(mongoConnection.db)
-            const collection = db.collection("members")
+            const collection = db.collection(collectionName)
             var batch = collection.initializeUnorderedBulkOp()
             _.forEach(values, (document) => {
                 batch.insert(document)
@@ -32,4 +32,4 @@ const insertMembers = (values, callback) => {
     })
 }
 
-exports.insertMembers = insertMembers
+exports.insert = insert
