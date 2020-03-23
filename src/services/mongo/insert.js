@@ -16,8 +16,10 @@ const insert = (collectionName, values, callback) => {
             })
             console.log(`Dumping into MongoDB.`);
             batch.execute((err, result) => {
-                if (err)
-                    console.log(err);
+                if (err) {
+                    console.log(err.message);
+                    callback(err)
+                }
                 else {
                     console.log(`Bulk inserted ${result.nInserted} rows.`);
                     callback()

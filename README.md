@@ -27,3 +27,9 @@ npm test
 ```bash
 npm start
 ```
+
+## Query questions
+* Execute the following in a terminal opened in the queries folder:
+```bash
+node q2_x.js
+```

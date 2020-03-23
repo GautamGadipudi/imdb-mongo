@@ -29,7 +29,7 @@ isMovieCollectionCreated = db.createCollection("movies", {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["_id", "title"],
+            required: ["_id", "name"],
             properties: {
                 _id: {
                     bsonType: "int",
@@ -63,7 +63,7 @@ isMovieCollectionCreated = db.createCollection("movies", {
                     bsonType: "double",
                     description: "must be a double.",
                     maximum: 10,
-                    minimum: 0
+                    minimum: 1
                 },
                 numVotes: {
                     bsonType: "int",
@@ -71,10 +71,10 @@ isMovieCollectionCreated = db.createCollection("movies", {
                 },
                 genres: {
                     bsonType: "array",
-                    description: "must be an array of genre ids (int).",
+                    description: "must be an array of genres (string).",
                     items: {
-                        bsonType: "int",
-                        description: "must be an int."
+                        bsonType: "string",
+                        description: "must be a string."
                     }
                 },
                 actors: {
@@ -90,7 +90,7 @@ isMovieCollectionCreated = db.createCollection("movies", {
                             },
                             roles: {
                                 bsonType: "array",
-                                description: "must be an array of roles (string) and is required.",
+                                description: "must be an array of roles (string).",
                                 items: {
                                     bsonType: "string",
                                     description: "must be a string."

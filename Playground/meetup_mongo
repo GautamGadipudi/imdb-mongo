@@ -1,0 +1,16 @@
+members = {
+    _id: int,
+    status: enum,
+    groups: array of int,
+    topics: array of objects { _id: int, topicName: string }
+}
+
+events = {
+    _id: int,
+    groups: array of int,
+    venues: array of int
+}
+
+groups = {
+
+}
